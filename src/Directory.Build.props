@@ -10,16 +10,16 @@
     <BuildYear>$([System.DateTime]::Now.ToString("yyyy"))</BuildYear>
     <BuildMonth>$([System.DateTime]::Now.ToString("MM"))</BuildMonth>
     <BuildDay>$([System.DateTime]::Now.ToString("dd"))</BuildDay>
-    <BuildNumber>0</BuildNumber>
+    <BuildTime>$([System.DateTime]::Now.ToString("HHmm"))</BuildTime>
 
     <!-- 版本组合 -->
     <Version Condition="'$(PreReleaseLabel)' == ''">$(MajorVersion).$(MinorVersion).$(PatchVersion)</Version>
     <Version Condition="'$(PreReleaseLabel)' != ''">$(MajorVersion).$(MinorVersion).$(PatchVersion)-$(PreReleaseLabel)</Version>
 
     <!-- 程序集版本 -->
-    <AssemblyVersion>$(BuildYear).$(BuildMonth).$(BuildDay).$(BuildNumber)</AssemblyVersion>
+    <AssemblyVersion>$(BuildYear).$(BuildMonth).$(BuildDay).$(BuildTime)</AssemblyVersion>
     <FileVersion>$(AssemblyVersion)</FileVersion>
-    <InformationalVersion>$(Version)+build.$(BuildYear)$(BuildMonth)$(BuildDay).$(BuildNumber)</InformationalVersion>
+    <InformationalVersion>$(Version)+build.$(BuildYear)$(BuildMonth)$(BuildDay).$(BuildTime)</InformationalVersion>
 
     <!-- 包信息 -->
     <PackageVersion>$(Version)</PackageVersion>
@@ -36,6 +36,10 @@
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsNotAsErrors>NU1701;NU1702</WarningsNotAsErrors>
+
+    <!-- 禁用自动的源码控制信息 -->
+    <EnableSourceControlManagerQueries>false</EnableSourceControlManagerQueries>
+    <EnableSourceLink>false</EnableSourceLink>
   </PropertyGroup>
 
   <!-- 包生成配置 -->

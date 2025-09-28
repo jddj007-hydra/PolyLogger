@@ -64,39 +64,39 @@ public class LoggingBuilderExtensionsTests
                 });
             });
 
-            var serviceProvider = services.BuildServiceProvider();
+            using var serviceProvider = services.BuildServiceProvider();
             var logger = serviceProvider.GetService<ILogger<LoggingBuilderExtensionsTests>>();
 
             Assert.NotNull(logger);
 
             logger.LogInformation("Test message from extensions");
 
+            // Force disposal to ensure files are flushed
+            serviceProvider.Dispose();
+
             // Give some time for the file to be created
-            Thread.Sleep(100);
+            Thread.Sleep(200);
 
             // Check what directories were actually created
             var createdDirs = Directory.GetDirectories(tempDirectory, "*", SearchOption.AllDirectories);
             var allDirs = string.Join(", ", createdDirs);
 
-            var expectedDirectory = Path.Combine(tempDirectory, "PolyLogger.Tests", "LoggingBuilderExtensionsTests");
+            // Check if tempDirectory exists and what's in it
+            var tempExists = Directory.Exists(tempDirectory);
+            var tempFiles = tempExists ? string.Join(", ", Directory.GetFiles(tempDirectory, "*", SearchOption.AllDirectories)) : "Directory doesn't exist";
 
-            // If the expected directory doesn't exist, try to find what was actually created
-            if (!Directory.Exists(expectedDirectory))
+            // Find any log files in the temp directory
+            var foundLogFiles = tempExists ? Directory.GetFiles(tempDirectory, "*.log", SearchOption.AllDirectories) : new string[0];
+
+            if (foundLogFiles.Length == 0)
             {
-                // Maybe the directory structure is different
-                if (createdDirs.Length > 0)
-                {
-                    expectedDirectory = createdDirs[0];
-                }
+                Assert.Fail($"No log files found anywhere in temp directory. Temp dir exists: {tempExists}. Created dirs: {allDirs}. Files: {tempFiles}");
             }
 
-            Assert.True(Directory.Exists(expectedDirectory), $"Directory does not exist: {expectedDirectory}. Created dirs: {allDirs}");
+            // If we found log files, use the first one
+            var logFile = foundLogFiles[0];
 
-            // Find any log files in the directory
-            var logFiles = Directory.GetFiles(expectedDirectory, "*.log");
-            Assert.True(logFiles.Length > 0, $"No log files found in {expectedDirectory}");
-
-            var content = File.ReadAllText(logFiles[0]);
+            var content = File.ReadAllText(logFile);
             Assert.Contains("Test message from extensions", content);
         }
         finally

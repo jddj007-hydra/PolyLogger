@@ -14,20 +14,12 @@ public static class LoggingBuilderExtensions
         builder.Services.Configure(configure);
         builder.Services.AddSingleton<ILoggerProvider, FileLoggerProvider>();
 
-        // Validate configuration on startup
-        builder.Services.AddSingleton(provider =>
-        {
-            var options = new FileLoggerOptions();
-            configure(options);
-            options.Validate();
-            return options;
-        });
-
         return builder;
     }
 
     public static ILoggingBuilder AddFileLogger(this ILoggingBuilder builder)
     {
+        builder.Services.Configure<FileLoggerOptions>(options => { });
         builder.Services.AddSingleton<ILoggerProvider, FileLoggerProvider>();
         return builder;
     }

@@ -42,7 +42,7 @@ public class FileLoggerOptionsValidationTests
         var options = new FileLoggerOptions
         {
             RootPath = "logs",
-            DateFormat = "gg"  // Invalid format specifier
+            DateFormat = "%"  // Invalid format specifier
         };
 
         var exception = Assert.Throws<ArgumentException>(() => options.Validate());

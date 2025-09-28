@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PolyLogger.csproj" />
+    <ProjectReference Include="..\..\src\PolyLogger.csproj" />
   </ItemGroup>
 
 </Project>
