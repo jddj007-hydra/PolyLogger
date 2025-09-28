@@ -1,14 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <!-- 项目特定配置 -->
     <PackageId>PolyLogger</PackageId>
-    <Version>1.0.0</Version>
-    <Authors>PolyLogger</Authors>
-    <Description>A flexible file logging library compatible with Microsoft.Extensions.Logging</Description>
+    <Description>一个灵活的文件日志库，兼容Microsoft.Extensions.Logging接口</Description>
+    <PackageReleaseNotes>v1.1.0: 配置完整的版本控制系统，支持混合版本控制模式，新增自动构建信息显示</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
