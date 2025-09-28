@@ -3,9 +3,44 @@
   <PropertyGroup>
     <!-- 项目特定配置 -->
     <PackageId>PolyLogger</PackageId>
-    <Description>一个灵活的文件日志库，兼容Microsoft.Extensions.Logging接口</Description>
-    <PackageReleaseNotes>v1.1.0: 配置完整的版本控制系统，支持混合版本控制模式，新增自动构建信息显示</PackageReleaseNotes>
+    <Description>一个灵活的文件日志库，完全兼容 Microsoft.Extensions.Logging。支持智能目录结构、文件滚动、级别分离、线程安全等特性，原生支持 .NET DI 容器。</Description>
+
+    <!-- 包元数据 -->
+    <PackageTags>logging;file;logger;microsoft-extensions-logging;dotnet;csharp;log</PackageTags>
+    <Authors>PolyLogger Team</Authors>
+    <Company>PolyLogger</Company>
+    <Copyright>Copyright © 2025 PolyLogger Team</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/jddj007-hydra/PolyLogger</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jddj007-hydra/PolyLogger</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- 发布说明 -->
+    <PackageReleaseNotes>v1.1.0 (2025-09-28)
+- 配置完整的版本控制系统
+- 支持混合版本控制模式
+- 新增自动构建信息显示
+
+v1.0.0 (2025-09-28)
+- 初始版本发布
+- 实现文件日志记录功能
+- 兼容Microsoft.Extensions.Logging接口
+
+主要特性:
+🔌 完全兼容 Microsoft.Extensions.Logging
+📁 智能目录结构 - 根据类型自动创建子目录
+🔄 文件滚动 - 支持按日期和文件大小滚动
+🏷️ 级别分离 - 可按日志级别分文件存储
+⚙️ 高度可配置 - 支持自定义文件命名规则
+🔒 线程安全 - 支持高并发场景
+🚀 依赖注入 - 原生支持 .NET DI 容器</PackageReleaseNotes>
   </PropertyGroup>
+
+  <!-- 包含 README 文件 -->
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.9" />
